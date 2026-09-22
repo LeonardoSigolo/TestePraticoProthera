@@ -100,7 +100,7 @@ public class Principal {
 		
 		System.out.println("====Salários minimos");
 		for(Funcionario func : listaFuncionarios) {
-			System.out.println(func.calculaSalariosMinimos(func.getSalario())); 
+			System.out.println(func.formataNumeros(func.calculaSalariosMinimos(func.getSalario())));
 		}
 	}
 

@@ -20,10 +20,10 @@ public class Funcionario extends Pessoa{
 		setSalario(salarioAtualizado);
 	}
 	public void exibeFunc() {
-		System.out.println(this.getNome() + " " + this.getDataNascimentoFormatado() + " " + this.formataSalario(this.getSalario()) + " " + this.getFuncao());
+		System.out.println(this.getNome() + " " + this.getDataNascimentoFormatado() + " " + this.formataNumeros(this.getSalario()) + " " + this.getFuncao());
 	}
 	
-	public String formataSalario(BigDecimal salario) {
+	public String formataNumeros(BigDecimal salario) {
 		DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.of("pt", "BR")));
 		return df.format(salario);
 	}
