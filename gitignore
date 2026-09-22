@@ -1,0 +1,32 @@
+# Compiled class files
+bin/
+*.class
+
+# Eclipse
+.settings/
+.classpath
+.project
+.metadata/
+*.launch
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
