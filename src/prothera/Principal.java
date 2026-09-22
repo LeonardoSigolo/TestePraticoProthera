@@ -1,8 +1,11 @@
 package prothera;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -79,6 +82,13 @@ public class Principal {
 		for(String nome : nomes) {
 			System.out.println(nome);
 		}
+		
+		BigDecimal salarioTotal = BigDecimal.ZERO;
+		for(Funcionario func : listaFuncionarios) {
+			salarioTotal = salarioTotal.add(func.getSalario());
+		}
+		DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.of("pt", "BR")));
+		System.out.println(df.format(salarioTotal));
 	}
 
 }

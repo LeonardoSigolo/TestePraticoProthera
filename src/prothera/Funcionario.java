@@ -23,10 +23,20 @@ public class Funcionario extends Pessoa{
 		System.out.println(this.getNome() + " " + this.getDataNascimentoFormatado() + " " + this.getSalario() + " " + this.getFuncao());
 	}
 	
-	public String getSalario() {
+	public String getSalarioFormatado() {
 		DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.of("pt", "BR")));
 		return df.format(salario);
 	}
+	
+	public String formataSalario(BigDecimal salario) {
+		DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.of("pt", "BR")));
+		return df.format(salario);
+	}
+	
+	public BigDecimal getSalario() {
+		return salario;
+	}
+	
 	public void setSalario(BigDecimal salario) {
 		this.salario = salario;
 	}
