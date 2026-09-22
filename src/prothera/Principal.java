@@ -31,8 +31,14 @@ public class Principal {
 			func.exibeFunc();
 		}
 		
+		System.out.println("=========Salario aumentado========="); //Sei que não pediram pra imprimir mas por via das duvidas
+		
 		for(int i = 0; i < listaFuncionarios.size(); i++) {
 			listaFuncionarios.get(i).aumentaSalario(10);
+		}
+		
+		for(Funcionario func : listaFuncionarios) {
+			func.exibeFunc();
 		}
 
 		Map<String, ArrayList<Funcionario>> funcoes = new TreeMap<>();
