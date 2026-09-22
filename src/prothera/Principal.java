@@ -83,12 +83,19 @@ public class Principal {
 			System.out.println(nome);
 		}
 		
+		System.out.println("====Salário total");
+		
 		BigDecimal salarioTotal = BigDecimal.ZERO;
 		for(Funcionario func : listaFuncionarios) {
 			salarioTotal = salarioTotal.add(func.getSalario());
 		}
 		DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.of("pt", "BR")));
 		System.out.println(df.format(salarioTotal));
+		
+		System.out.println("====Salários minimos");
+		for(Funcionario func : listaFuncionarios) {
+			System.out.println(func.calculaSalariosMinimos(func.getSalario())); 
+		}
 	}
 
 }

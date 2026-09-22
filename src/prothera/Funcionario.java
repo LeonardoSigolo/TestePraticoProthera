@@ -20,17 +20,18 @@ public class Funcionario extends Pessoa{
 		setSalario(salarioAtualizado);
 	}
 	public void exibeFunc() {
-		System.out.println(this.getNome() + " " + this.getDataNascimentoFormatado() + " " + this.getSalario() + " " + this.getFuncao());
-	}
-	
-	public String getSalarioFormatado() {
-		DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.of("pt", "BR")));
-		return df.format(salario);
+		System.out.println(this.getNome() + " " + this.getDataNascimentoFormatado() + " " + this.formataSalario(this.getSalario()) + " " + this.getFuncao());
 	}
 	
 	public String formataSalario(BigDecimal salario) {
 		DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.of("pt", "BR")));
 		return df.format(salario);
+	}
+	
+	public BigDecimal calculaSalariosMinimos(BigDecimal salario) {
+		int salarioMinimo = 1212;
+		BigDecimal resultado = BigDecimal.valueOf(salario.floatValue() / salarioMinimo);
+		return resultado;
 	}
 	
 	public BigDecimal getSalario() {
