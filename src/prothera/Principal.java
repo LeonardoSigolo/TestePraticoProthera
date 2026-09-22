@@ -1,7 +1,6 @@
 package prothera;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,7 @@ public class Principal {
 		listaFuncionarios.add(new Funcionario("Heloisa", LocalDate.of(2003, 5, 24), new BigDecimal("1606.85"), "Eletricista"));
 		listaFuncionarios.add(new Funcionario("Helena", LocalDate.of(1996, 9, 2), new BigDecimal("2799.93"), "Gerente"));
 		
-		listaFuncionarios.removeIf(func -> func.getNome().equals("joao"));
+		listaFuncionarios.removeIf(func -> func.getNome().equals("Joao"));
 		
 		for(Funcionario func : listaFuncionarios) {
 			func.exibeFunc();
@@ -69,6 +68,17 @@ public class Principal {
 		}
 		System.out.println("====Mais velho:");
 		System.out.println(maisVelho.getNome() + " tem " + maisVelho.getIdade() + " anos");
+		
+		System.out.println("====Ordem alfabética");
+		
+		List<String> nomes = new ArrayList<>(); 
+		for(Funcionario func : listaFuncionarios) {
+			nomes.add(func.getNome());
+		}
+		nomes.sort(null);
+		for(String nome : nomes) {
+			System.out.println(nome);
+		}
 	}
 
 }
