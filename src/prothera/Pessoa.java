@@ -1,6 +1,7 @@
 package prothera;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
@@ -26,6 +27,11 @@ public class Pessoa {
 		String formatado = dataNascimento.format(diaMesAno);
 		
 		return formatado;
+	}
+	
+	public int getIdade() {
+		LocalDate agora = LocalDate.now();
+		return Period.between(this.dataNascimento, agora).getYears();
 	}
 	
 	public LocalDate getDataNascimento() {

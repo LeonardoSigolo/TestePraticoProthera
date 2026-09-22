@@ -1,6 +1,7 @@
 package prothera;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,13 +53,22 @@ public class Principal {
 		
 		System.out.println("====Faz aniversário em outubro ou dezembro:");
 		
+		int idadeAnterior = 0;
+		Funcionario maisVelho = null;
 		for(Funcionario func : listaFuncionarios) {
 			int mesValor = func.getDataNascimento().getMonthValue();
 			if(mesValor == 10 || mesValor == 12) {
 				System.out.println(func.getNome());
 			}
+			
+			
+			if(func.getIdade() > idadeAnterior) {
+				idadeAnterior = func.getIdade();
+				maisVelho = func;
+			}
 		}
-		
+		System.out.println("====Mais velho:");
+		System.out.println(maisVelho.getNome() + " tem " + maisVelho.getIdade() + " anos");
 	}
 
 }
