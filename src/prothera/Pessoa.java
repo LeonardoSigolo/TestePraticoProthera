@@ -5,7 +5,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
-	String nome;
+	private String nome;
 	private LocalDate dataNascimento;
 	
 	public Pessoa(String nome, LocalDate dataNascimento) {
