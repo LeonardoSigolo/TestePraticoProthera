@@ -1,54 +1,33 @@
-# Teste Prático - Prothera
+# Refatoração - Teste Prático Prothera
 
-Teste do processo seletivo da Prothera. O projeto simula o cadastro e a gestão de uma lista de funcionários, aplicando conceitos de orientação a objetos, coleções e manipulação de datas em Java.
+Esta branch (`refatoracao`) contém uma versão revisada da solução original, feita **após** a entrega oficial do teste, por iniciativa própria e para fins de estudo/portfólio. A branch `main` permanece intocada, exatamente como foi entregue.
 
-## Tecnologias
+## Por que essa branch existe
 
-- Java 17+ (uso de `Locale.of`, `LocalDate`, `Period`)
-- Sem dependências externas — projeto puro Java (Eclipse)
+Depois de enviar o teste, revisei o código e identifiquei pontos de organização e precisão que valiam a pena corrigir. Como o processo seletivo já havia sido finalizado, optei por isolar essas mudanças numa branch separada, sem alterar o que já foi avaliado.
 
-## Estrutura do projeto
+## O que mudou em relação à `main`
 
-```
-src/
-└── prothera/
-    ├── Pessoa.java        # Classe base: nome, data de nascimento e idade
-    ├── Funcionario.java   # Herda de Pessoa: salário, função e regras de negócio
-    └── Principal.java     # Classe main: monta a lista e executa as regras pedidas
-```
+O comportamento do programa é **idêntico** ao da versão original — mesma entrada, mesma saída. As mudanças são de qualidade interna do código:
 
-- **Pessoa**: encapsula os dados pessoais e calcula a idade a partir da data de nascimento.
-- **Funcionario**: estende `Pessoa`, adicionando salário (`BigDecimal`) e função, além dos métodos de aumento de salário e formatação.
-- **Principal**: ponto de entrada da aplicação, onde a lista de funcionários é criada e todas as regras abaixo são executadas em sequência.
-
-## Funcionalidades implementadas
-
-A partir da lista de funcionários cadastrada em `Principal`, o programa:
-
-1. Remove o funcionário "Joao" da lista.
-2. Exibe todos os funcionários (nome, data de nascimento, salário formatado e função).
-3. Aumenta o salário de todos os funcionários em 10% e exibe a lista atualizada.
-4. Agrupa e lista os funcionários por função, em ordem alfabética das funções.
-5. Lista os funcionários que fazem aniversário em outubro ou dezembro.
-6. Identifica e exibe o funcionário mais velho.
-7. Lista os nomes de todos os funcionários em ordem alfabética.
-8. Calcula e exibe o salário total da equipe.
-9. Calcula e exibe, para cada funcionário, quantos salários mínimos seu salário representa.
-
+### `Pessoa.java`
+- Campo `nome` passou a ser `private` (antes tinha visibilidade padrão/package), ficando consistente com `dataNascimento`.
+### `Funcionario.java`
+- `aumentaSalario` e `calculaSalariosMinimos` agora operam diretamente com `BigDecimal.multiply`/`divide`, sem converter para `float` no meio do cálculo. Na versão original, esse caminho por `float` reintroduzia o problema de precisão que o uso de `BigDecimal` deveria evitar.
+- `calculaSalariosMinimos()` não recebe mais um parâmetro redundante — usa o próprio salário do objeto.
+### `Principal.java`
+- A lógica que antes estava toda dentro do `main()` foi separada em métodos privados, um por regra de negócio (`removerFuncionario`, `exibirFuncionarios`, `aumentarSalarios`, `exibirPorFuncao`, `exibirAniversariantesOutubroDezembro`, `exibirMaisVelho`, `exibirNomesEmOrdemAlfabetica`, `exibirSalarioTotal`, `exibirSalariosMinimos`), com `main()` apenas orquestrando as chamadas.
+- Removida a inicialização frágil de "mais velho" baseada em `idadeAnterior = 0` (que dependia de idades sempre positivas); agora a comparação usa o primeiro funcionário da lista como ponto de partida.
 ## Como executar
 
-### Via Eclipse
-1. Importe o projeto como "Existing Projects into Workspace".
-2. Rode a classe `prothera.Principal` como Java Application.
+Igual à `main`:
 
-### Via linha de comando
 ```bash
 cd src
 javac -d ../bin module-info.java prothera/*.java
 java -p ../bin -m TestePraticoProthera/prothera.Principal
 ```
 
-## Observações
+## Status
 
-- O salário mínimo usado no cálculo de "salários mínimos" está fixado em `1212` (valor de referência usado no exercício).
-- A formatação numérica segue o padrão `pt-BR` (vírgula como separador decimal).
+Refatoração feita apenas para aprendizado pessoal — **não representa uma nova entrega** para o processo seletivo da Prothera, que já foi concluído com o conteúdo da branch `main`.
