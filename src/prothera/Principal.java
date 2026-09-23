@@ -12,81 +12,30 @@ import java.util.TreeMap;
 
 public class Principal {
 
-    private static final DecimalFormat FORMATO_BR =
-            new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.of("pt", "BR")));
+    private static final DecimalFormat FORMATO_BR = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.of("pt", "BR")));
 
     static void main() {
         List<Funcionario> listaFuncionarios = criaListaFuncionarios();
 
         removerFuncionario(listaFuncionarios, "Joao");
 
-        System.out.println("=========Salario aumentado========="); //Sei que não pediram pra imprimir mas por via das duvidas
+        System.out.println("=========Salario aumentado=========");
 
-        aumentarSalarios(listaFuncionarios);
+        aumentarSalarios(listaFuncionarios, 10);
 
         exibeFuncionario(listaFuncionarios);
 
-        Map<String, ArrayList<Funcionario>> funcoes = new TreeMap<>();
+        exibePorFuncao(listaFuncionarios);
 
-        for (Funcionario func : listaFuncionarios) {
-            funcoes.computeIfAbsent(func.getFuncao(), k -> new ArrayList<>()).add(func);
-        }
+        mesAniversario(listaFuncionarios);
 
-        for (Map.Entry<String, ArrayList<Funcionario>> entrada : funcoes.entrySet()) {
-            String funcao = entrada.getKey();
+        maisVelho(listaFuncionarios);
 
-            List<Funcionario> lista = entrada.getValue();
+        ordemAlfabetica(listaFuncionarios);
 
-            System.out.println("====Função: " + funcao);
+        salariototal(listaFuncionarios);
 
-            for (Funcionario func : lista) {
-                System.out.println(func.getNome());
-            }
-        }
-
-        System.out.println("====Faz aniversário em outubro ou dezembro:");
-
-        int idadeAnterior = 0;
-        Funcionario maisVelho = null;
-        for (Funcionario func : listaFuncionarios) {
-            int mesValor = func.getDataNascimento().getMonthValue();
-            if (mesValor == 10 || mesValor == 12) {
-                System.out.println(func.getNome());
-            }
-
-
-            if (func.getIdade() > idadeAnterior) {
-                idadeAnterior = func.getIdade();
-                maisVelho = func;
-            }
-        }
-        System.out.println("====Mais velho:");
-        System.out.println(maisVelho.getNome() + " tem " + maisVelho.getIdade() + " anos");
-
-        System.out.println("====Ordem alfabética");
-
-        List<String> nomes = new ArrayList<>();
-        for (Funcionario func : listaFuncionarios) {
-            nomes.add(func.getNome());
-        }
-        nomes.sort(null);
-        for (String nome : nomes) {
-            System.out.println(nome);
-        }
-
-        System.out.println("====Salário total");
-
-        BigDecimal salarioTotal = BigDecimal.ZERO;
-        for (Funcionario func : listaFuncionarios) {
-            salarioTotal = salarioTotal.add(func.getSalario());
-        }
-        DecimalFormat df = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(Locale.of("pt", "BR")));
-        System.out.println(df.format(salarioTotal));
-
-        System.out.println("====Salários minimos");
-        for (Funcionario func : listaFuncionarios) {
-            System.out.println(func.formataNumeros(func.calculaSalariosMinimos(func.getSalario())));
-        }
+        salariosminimos(listaFuncionarios);
     }
 
     private static List<Funcionario> criaListaFuncionarios() {
@@ -117,9 +66,77 @@ public class Principal {
         }
     }
 
-    private  static void aumentarSalarios(List<Funcionario> lista){
+    private static void aumentarSalarios(List<Funcionario> lista, double porcentagem) {
         for (Funcionario func : lista) {
-            func.aumentaSalario(10);
+            func.aumentaSalario(porcentagem);
+        }
+    }
+
+    private static void exibePorFuncao(List<Funcionario> lista) {
+        Map<String, ArrayList<Funcionario>> funcoes = new TreeMap<>();
+
+        for (Funcionario func : lista) {
+            funcoes.computeIfAbsent(func.getFuncao(), k -> new ArrayList<>()).add(func);
+        }
+
+        for (Map.Entry<String, ArrayList<Funcionario>> entrada : funcoes.entrySet()) {
+
+            System.out.println("====Função: " + entrada.getKey());
+
+            for (Funcionario func : entrada.getValue()) {
+                System.out.println(func.getNome());
+            }
+        }
+    }
+
+    private static void mesAniversario(List<Funcionario> lista) {
+        System.out.println("====Faz aniversário em outubro ou dezembro:");
+        for (Funcionario func : lista) {
+            int mesValor = func.getDataNascimento().getMonthValue();
+            if (mesValor == 10 || mesValor == 12) {
+                System.out.println(func.getNome());
+            }
+        }
+    }
+
+    private static void maisVelho(List<Funcionario> lista) {
+        System.out.println("====Mais velho:");
+        Funcionario maisVelho = null;
+        for (Funcionario func : lista) {
+            if (maisVelho == null || func.getIdade() > maisVelho.getIdade()) {
+                maisVelho = func;
+            }
+        }
+        System.out.println(maisVelho.getNome() + " tem " + maisVelho.getIdade() + " anos");
+    }
+
+    private static void ordemAlfabetica(List<Funcionario> lista) {
+        System.out.println("====Ordem alfabética");
+
+        List<String> nomes = new ArrayList<>();
+        for (Funcionario func : lista) {
+            nomes.add(func.getNome());
+        }
+        nomes.sort(null);
+        for (String nome : nomes) {
+            System.out.println(nome);
+        }
+    }
+
+    private static void salariototal(List<Funcionario> lista){
+        System.out.println("====Salário total");
+
+        BigDecimal salarioTotal = BigDecimal.ZERO;
+        for (Funcionario func : lista) {
+            salarioTotal = salarioTotal.add(func.getSalario());
+        }
+        System.out.println(FORMATO_BR.format(salarioTotal));
+    }
+
+    private static void salariosminimos(List<Funcionario> lista){
+        System.out.println("====Salários minimos");
+        for (Funcionario func : lista) {
+            System.out.println(func.formataNumeros(func.calculaSalariosMinimos(func.getSalario())));
         }
     }
 }

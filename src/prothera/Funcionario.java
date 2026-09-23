@@ -15,7 +15,7 @@ public class Funcionario extends Pessoa{
 		this.funcao = funcao;
 	}
 	
-	public void aumentaSalario(float porcentagem) {
+	public void aumentaSalario(double porcentagem) {
 		BigDecimal salarioAtualizado = BigDecimal.valueOf(salario.floatValue() * (porcentagem / 100 + 1));
 		setSalario(salarioAtualizado);
 	}
