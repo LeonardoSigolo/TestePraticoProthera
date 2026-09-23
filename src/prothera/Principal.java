@@ -19,6 +19,8 @@ public class Principal {
 
         removerFuncionario(listaFuncionarios, "Joao");
 
+        exibeFuncionario(listaFuncionarios);
+
         System.out.println("=========Salario aumentado=========");
 
         aumentarSalarios(listaFuncionarios, 10);
@@ -62,7 +64,7 @@ public class Principal {
 
     private static void exibeFuncionario(List<Funcionario> lista) {
         for (Funcionario func : lista) {
-            System.out.println(func.getNome());
+            System.out.println(func.getNome() + " " + func.getDataNascimentoFormatado() + " R$" + func.getSalario() + " " + func.getFuncao());
         }
     }
 
