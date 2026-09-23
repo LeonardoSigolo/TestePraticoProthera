@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 public class Pessoa {
 	private String nome;
 	private LocalDate dataNascimento;
-	
+
 	public Pessoa(String nome, LocalDate dataNascimento) {
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
@@ -21,19 +21,6 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public String getDataNascimentoFormatado() {
-		DateTimeFormatter diaMesAno = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		
-		String formatado = dataNascimento.format(diaMesAno);
-		
-		return formatado;
-	}
-	
-	public int getIdade() {
-		LocalDate agora = LocalDate.now();
-		return Period.between(this.dataNascimento, agora).getYears();
-	}
-	
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
@@ -41,4 +28,15 @@ public class Pessoa {
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+
+	public String getDataNascimentoFormatado() {
+		DateTimeFormatter diaMesAno = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		return dataNascimento.format(diaMesAno);
+	}
+
+	public int getIdade() {
+		return Period.between(this.dataNascimento, LocalDate.now()).getYears();
+	}
+
 }
